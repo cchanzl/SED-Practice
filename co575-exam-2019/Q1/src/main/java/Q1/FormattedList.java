@@ -4,12 +4,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public abstract class FormattedList {
+public class FormattedList {
 
+    private final OnlineList list;
     private List<String> content = new ArrayList<>();
 
-    public FormattedList(String... items) {
+    public FormattedList(OnlineList list, String... items) {
         content.addAll(Arrays.asList(items));
+        this.list = list;
     }
 
     public void add(String item) {
@@ -17,18 +19,12 @@ public abstract class FormattedList {
     }
 
     public void print() {
-        System.out.println(formatHeader());
+        System.out.println(list.formatHeader());
         for (String item : content) {
-            System.out.println(formatItem(item));
+            System.out.println(list.formatItem(item));
         }
-        System.out.println(formatFooter());
+        System.out.println(list.formatFooter());
     }
-
-    protected abstract String formatHeader();
-
-    protected abstract String formatItem(String item);
-
-    protected abstract String formatFooter();
 
 }
 
