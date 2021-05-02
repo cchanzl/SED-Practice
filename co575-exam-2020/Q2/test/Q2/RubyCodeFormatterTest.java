@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 public class RubyCodeFormatterTest {
 
-    CodeFormatter rubyFormatter = new RubyCodeFormatter();
+    CodeFormatter rubyFormatter = new CodeFormatter(new RubyCodeFormatter());
 
     @Test
     public void doesNotIndentSingleLine(){

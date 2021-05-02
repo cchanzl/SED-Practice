@@ -2,20 +2,20 @@ package Q2;
 
 import java.util.List;
 
-public class JavaCodeFormatter extends CodeFormatter {
+public class JavaCodeFormatter implements Formatter {
 
   @Override
-  protected List<String> startOfBlock() {
+  public List<String> startOfBlock() {
     return List.of("{");
   }
 
   @Override
-  protected String endOfBlock() {
+  public String endOfBlock() {
     return "}";
   }
 
   @Override
-  protected WhiteSpace tabsOrSpaces() {
+  public WhiteSpace tabsOrSpaces() {
     return WhiteSpace.TWOSPACES;
   }
 

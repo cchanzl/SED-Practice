@@ -2,20 +2,20 @@ package Q2;
 
 import java.util.List;
 
-public class RubyCodeFormatter extends CodeFormatter {
+public class RubyCodeFormatter implements Formatter {
 
   @Override
-  protected List<String> startOfBlock() {
+  public List<String> startOfBlock() {
     return List.of("do", "if", "while");
   }
 
   @Override
-  protected String endOfBlock() {
+  public String endOfBlock() {
     return "end";
   }
 
   @Override
-  protected WhiteSpace tabsOrSpaces() {
+  public WhiteSpace tabsOrSpaces() {
     return WhiteSpace.TABS;
   }
 }
