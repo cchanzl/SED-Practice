@@ -15,7 +15,7 @@ public class ExamResult {
   }
 
   public void scaleAndSave(double scalingFactor) {
-    new MarkingSystem().registerMark(this, scalingFactor);
+    MarkingSystem.getInstance().registerMark(this, scalingFactor);
   }
 
   public int calculateTotal(double scaleFactor) {
