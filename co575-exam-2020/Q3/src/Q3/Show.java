@@ -10,6 +10,9 @@ public class Show {
     this.ticketPrice = unitPrice;
   }
 
+  public static void checkAvailable(Show show, int i) {
+  }
+
   public String title() {
     return title;
   }
