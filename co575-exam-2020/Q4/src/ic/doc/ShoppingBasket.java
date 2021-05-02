@@ -10,7 +10,7 @@ import java.util.Map;
 public class ShoppingBasket {
 
   private final Map<Item, Integer> items = new HashMap<>();
-  private CardNumber cardNumber;
+  private PaymentMethod paymentMethod;
 
   public void addItem(Item item) {
     if (items.containsKey(item)) {
@@ -20,8 +20,8 @@ public class ShoppingBasket {
     }
   }
 
-  public void enterCardDetails(String cardNumber) {
-    this.cardNumber = new CardNumber(cardNumber);
+  public void enterPaymentMethod(String cardNumber) {
+    paymentMethod.createPayment(cardNumber);
   }
 
   public void checkout() {
@@ -37,6 +37,6 @@ public class ShoppingBasket {
       totalPounds = Math.min(totalPounds, totalPounds - 5);
     }
 
-    new TransactionProcessor().process(new CreditCardTransaction(cardNumber, totalPounds, 0));
+    new TransactionProcessor().process(new CreditCardTransaction((CardNumber) paymentMethod, totalPounds, 0));
   }
 }
