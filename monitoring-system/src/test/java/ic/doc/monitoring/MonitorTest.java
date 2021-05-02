@@ -10,5 +10,11 @@ public class MonitorTest{
     new Monitor(new FailingProbe()).check(); 
   }
   
-  
+  private static class FailingProbe implements Probe{
+    @Override
+    public boolean passes(){ return false;}
+    
+    @OVerride public String getFailureDescription(){ return "always fails";}
+  }
+}
 }
