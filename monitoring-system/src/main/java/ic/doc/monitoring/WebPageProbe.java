@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
 
-public class WebPageProbe {
+public class WebPageProbe implements Probe {
 
     private final String url;
     private final String stringToCheckFor;
@@ -16,6 +16,7 @@ public class WebPageProbe {
         this.stringToCheckFor = stringToCheckFor;
     }
 
+    @Override
     public boolean passes() {
         BufferedReader in = null;
         try {
@@ -44,6 +45,7 @@ public class WebPageProbe {
         return false;
     }
 
+    @Override
     public String getFailureDescription() {
         return "Page at " + url + " did not contain " + stringToCheckFor;
     }
