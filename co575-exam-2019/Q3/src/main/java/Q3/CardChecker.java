@@ -5,25 +5,19 @@ import java.util.ArrayList;
 
 public class CardChecker {
     private List<Observer> observerList = new ArrayList<>();
+    private int cardLength = 12;
 
     public void validate(String s) {
-        if (s.length() != 12 ) {
-            for(Observer obs: observerList){
-                obs.alert(s);
-            }
+        if (s.length() != cardLength ) {
+            for(Observer obs: observerList) obs.alert(s);
         }
     }
 
     public void addObserver(Observer observer) {
-       this.observerList.add(observer);
+        this.observerList.add(observer);
     }
 
-    public int checkNumberOfObserver(){return observerList.size();}
-
-    public Observer getObserver(Observer observer){return observerList.get(observerList.size() - 1);}
-
     public void removeObserver(Observer observer) {
-        if (observerList.size() - 1 == -1) return;
-        observerList.remove(observerList.size() - 1);
+        this.observerList.remove(observer);
     }
 }

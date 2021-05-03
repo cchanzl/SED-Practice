@@ -10,7 +10,8 @@ public class CardCheckerTest {
 
     @Rule
     public JUnitRuleMockery context = new JUnitRuleMockery();
-    Observer observer = context.mock(Observer.class);
+    Observer observer1 = context.mock(Observer.class, "obs1");
+    Observer observer2 = context.mock(Observer.class, "obs2");
 
     final CardChecker cardchecker = new CardChecker();
     String twelve = "111122223333";
@@ -21,9 +22,10 @@ public class CardCheckerTest {
         context.checking(
                 new Expectations(){
                     {
-                        never(observer).alert(twelve);
+                        never(observer1).alert(twelve);
                     }
         });
+        cardchecker.addObserver(observer1);
         cardchecker.validate(twelve);
     }
 
@@ -32,12 +34,26 @@ public class CardCheckerTest {
         context.checking(
                 new Expectations(){
                     {
-                        exactly(2). of(observer).alert(fourOnes);
+                        exactly(1). of(observer1).alert(fourOnes);
+                        exactly(1). of(observer2).alert(fourOnes);
                     }
                 });
+        cardchecker.addObserver(observer1);
+        cardchecker.addObserver(observer2);
+        cardchecker.validate(fourOnes);
+    }
 
-        cardchecker.addObserver(observer);
-        cardchecker.addObserver(observer);
+    @Test
+    public void checkObserverCanBeRemoved(){
+        context.checking(
+                new Expectations(){
+                    {
+                        exactly(1). of(observer2).alert(fourOnes);
+                    }
+                });
+        cardchecker.addObserver(observer1);
+        cardchecker.addObserver(observer2);
+        cardchecker.removeObserver(observer1);
         cardchecker.validate(fourOnes);
     }
 }
