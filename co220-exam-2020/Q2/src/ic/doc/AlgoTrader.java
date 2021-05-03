@@ -1,5 +1,6 @@
 package ic.doc;
 
+import com.londonstockexchange.InvtMarket;
 import com.londonstockexchange.StockMarketDataFeed;
 import com.londonstockexchange.StockPrice;
 import com.londonstockexchange.TickerSymbol;
@@ -16,13 +17,20 @@ public class AlgoTrader {
       List.of(TickerSymbol.GOOG, TickerSymbol.MSFT, TickerSymbol.APPL);
 
   private final Map<TickerSymbol, Integer> lastPrices = new HashMap<>();
-  private final SimpleBroker broker = new SimpleBroker();
+  private final Alert broker = new SimpleBroker();
+
+  public void trade(InvtMarket newMarket, Alert alert) {
+    tradeEachStock(newMarket, alert);
+  }
 
   public void trade() {
+    tradeEachStock(StockMarketDataFeed.getInstance(), broker);
+  }
 
+  private void tradeEachStock(InvtMarket newMarket, Alert broker){
     for (TickerSymbol stock : stocksToWatch) {
 
-      StockPrice price = StockMarketDataFeed.getInstance().currentPriceFor(stock);
+      StockPrice price = newMarket.currentPriceFor(stock);
 
       if (isRising(stock, price)) {
         broker.buy(String.valueOf(stock));
