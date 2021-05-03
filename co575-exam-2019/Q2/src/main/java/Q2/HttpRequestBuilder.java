@@ -13,6 +13,8 @@ public class HttpRequestBuilder {
         return new HttpRequest(url, method, params, headers, body);
     }
 
+    private HttpRequestBuilder(){};
+
     public static HttpRequestBuilder request(){
         return new HttpRequestBuilder();
     }

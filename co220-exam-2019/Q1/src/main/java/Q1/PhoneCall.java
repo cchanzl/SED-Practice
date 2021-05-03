@@ -12,6 +12,7 @@ public class PhoneCall {
   private final String caller;
   private final String callee;
 
+  private CentralSystem billingSystem = BillingSystem.getInstance();
   private Clock clock;
   private LocalTime startTime;
   private LocalTime endTime;
@@ -22,20 +23,20 @@ public class PhoneCall {
     this.clock = new MainClock();
   }
 
-  public PhoneCall(String caller, String callee, Clock clock) {
+  public PhoneCall(String caller, String callee, Clock clock, CentralSystem billingSystem) {
     this.caller = caller;
     this.callee = callee;
     this.clock = clock;
+    this.billingSystem = billingSystem;
   }
 
-  public void start() { startTime = clock.setStart(); }
-
-  public void end() {endTime = clock.setEnd(); }
-
-  public void charge(CentralSystem billingSystem) { billingSystem.addBillItem(caller, callee, priceInPence()); }
+  //public void start() { startTime = clock.setStart(); }
+  public void start() { startTime = LocalTime.now(); }
+  //public void end() { endTime = clock.setEnd(); }
+  public void end() { endTime = LocalTime.now(); }
 
   public void charge() {
-    BillingSystem.getInstance().addBillItem(caller, callee, priceInPence());
+    billingSystem.addBillItem(caller, callee, priceInPence());
   }
 
   private long priceInPence() {

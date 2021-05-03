@@ -21,10 +21,10 @@ public class PhoneCallTest {
       }
     });
 
-    PhoneCall call = new PhoneCall("+447770123456", "+4479341554433", new PeakClock());
+    PhoneCall call = new PhoneCall("+447770123456", "+4479341554433", new PeakClock(), billingSystem);
     call.start();
     call.end();
-    call.charge(billingSystem);
+    call.charge();
   }
 
   @Test
@@ -35,10 +35,10 @@ public class PhoneCallTest {
       }
     });
 
-    PhoneCall call = new PhoneCall("+447770123456", "+4479341554433", new OffPeakClock());
+    PhoneCall call = new PhoneCall("+447770123456", "+4479341554433", new OffPeakClock(), billingSystem);
     call.start();
     call.end();
-    call.charge(billingSystem);
+    call.charge();
   }
 
   private class PeakClock implements Clock{
