@@ -12,28 +12,34 @@ public class PhoneCall {
   private final String caller;
   private final String callee;
 
+  private Clock clock;
   private LocalTime startTime;
   private LocalTime endTime;
 
   public PhoneCall(String caller, String callee) {
     this.caller = caller;
     this.callee = callee;
+    this.clock = new MainClock();
   }
 
-  public void start() {
-    startTime = LocalTime.now();
+  public PhoneCall(String caller, String callee, Clock clock) {
+    this.caller = caller;
+    this.callee = callee;
+    this.clock = clock;
   }
 
-  public void end() {
-    endTime = LocalTime.now();
-  }
+  public void start() { startTime = clock.setStart(); }
+
+  public void end() {endTime = clock.setEnd(); }
+
+  public void charge(CentralSystem billingSystem) { billingSystem.addBillItem(caller, callee, priceInPence()); }
 
   public void charge() {
     BillingSystem.getInstance().addBillItem(caller, callee, priceInPence());
   }
 
   private long priceInPence() {
-    if (startTime.isAfter(LocalTime.of(9, 00)) && endTime.isBefore(LocalTime.of(18, 00))) {
+    if (clock.isAfter(LocalTime.of(9, 00)) && clock.isBefore(LocalTime.of(18, 00))) {
       return duration() * PEAK_RATE;
     } else {
       return duration() * OFF_PEAK_RATE;
